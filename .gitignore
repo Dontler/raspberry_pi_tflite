@@ -1,0 +1,7 @@
+/packages/tflite_runtime-2.5.0-cp37-cp37m-linux_armv7l.whl
+/packages/tflite_runtime-2.5.0-cp37-cp37m-linux_x86_64.whl
+/images/
+.idea
+test.py
+/venv/
+/__pycache__/
