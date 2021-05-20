@@ -56,4 +56,3 @@ class ObjectDetector:
             scores=self.__interpreter.get_tensor(output[2]["index"])[0],
             num=self.__interpreter.get_tensor(output[3]["index"])[0],
         )
-

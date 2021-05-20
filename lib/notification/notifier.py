@@ -9,5 +9,5 @@ class Notifier:
 
     def send_email_notification(self, notification: PhotoNotification):
         data = {'email': notification.email}
-        files = {'photo': notification.archive.file}
+        files = {'photo': notification.archive.flush()}
         self.__client.post(action=ActionsEnum.MAIL_SEND_PHOTO, data=data, files=files)

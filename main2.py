@@ -1,3 +1,5 @@
+import time
+
 from lib.ai.object_detector import ObjectDetector, ObjectDetectorConfig
 from lib.app_config import AppConfig
 from lib.capture.video_capture import VideoCapture, VideoCaptureConfig
@@ -5,6 +7,7 @@ from lib.category import CategoryCollection, Category
 from lib.http.client import HttpClient, ClientConfig
 from lib.notification.notifier import Notifier
 from lib.notification.notifier_facade import NotifierFacade
+from lib.photo.photo_service import PhotoService, PhotoServiceConfig
 
 LABELS_FILE = 'models/labelmap.txt'
 MODEL_PATH = 'models/object_detection_model.tflite'
@@ -18,6 +21,9 @@ if __name__ == '__main__':
     http_client = HttpClient(http_client_config)
     notifier = Notifier(http_client)
     notifier_facade = NotifierFacade(notifier)
+
+    photo_service_config = PhotoServiceConfig('images/')
+    photo_service = PhotoService(photo_service_config)
 
     categories = CategoryCollection.from_model(LABELS_FILE, config.accepted_classes)
 
@@ -39,5 +45,9 @@ if __name__ == '__main__':
                 continue
             box = output.boxes[index]
             h, w = img.source.shape[:2]
-            notifier_facade.send_photos()
+            if notifier_facade.is_dispatch_time(int(time.time())):
+                archive = photo_service.build_archive()
+                notifier_facade.send_photos(archive, config.default_email)
+            else:
+                photo_service.save_photo(img)
 
