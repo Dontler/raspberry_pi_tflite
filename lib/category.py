@@ -42,7 +42,7 @@ class CategoryCollection:
                 cls = val[:-1]
                 if cls == '???':
                     continue
-                accepted = len(include) > 0 and cls not in include
+                accepted = len(include) > 0 and cls in include
                 category = Category(index - 1, cls, accepted)
                 collection.push(category)
 

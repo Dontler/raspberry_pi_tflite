@@ -34,8 +34,8 @@ class VideoCapture:
         self.__config = config
 
         capture = cv2.VideoCapture(config.source)
-        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 1024)
-        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 768)
+        capture.set(cv2.CAP_PROP_FRAME_WIDTH, 300)
+        capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 300)
 
         self.__capture = capture
 
